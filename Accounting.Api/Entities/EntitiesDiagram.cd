@@ -1,21 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Accounting.Api.Entities.Subject">
-    <Position X="2.25" Y="1.5" Width="1.5" />
+  <Class Name="Accounting.Api.Entities.PrimaryClassification">
+    <Position X="2.25" Y="1.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>Entities\Subject.cs</FileName>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\PrimaryCategory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Accounting.Api.Entities.Record">
     <Position X="5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAEAAAAAAAAAIAAAACAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAEAAAAAAAAAAAAAACAAAAAAgABAQAAAAAACAA=</HashCode>
       <FileName>Entities\Record.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Subject" />
-    </ShowAsAssociation>
   </Class>
   <Font Name="Microsoft YaHei UI" Size="9" />
 </ClassDiagram>
