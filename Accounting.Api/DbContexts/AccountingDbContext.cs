@@ -14,6 +14,7 @@ namespace Accounting.Api.DbContexts
         {
         }
 
+
         public DbSet<PrimaryCategory> PrimaryCategories { get; set; }
 
         public DbSet<SecondaryCategory> secondaryCategories { get; set; }
@@ -22,14 +23,14 @@ namespace Accounting.Api.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // base.OnModelCreating(modelBuilder);          
+            modelBuilder.Entity<PrimaryCategory>().Property(x => x.Id).IsRequired();
+            modelBuilder.Entity<SecondaryCategory>().Property(x => x.Id).IsRequired();
 
             modelBuilder.Entity<SecondaryCategory>()
                 .HasOne(s => s.PrimaryCategory)
                 .WithMany(p => p.SecondaryCategory)
                 .HasForeignKey(s => s.PrimaryId)
                 .OnDelete(DeleteBehavior.Cascade);
-
 
             modelBuilder.Entity<PrimaryCategory>().HasData(
                 new PrimaryCategory() { Id = 1, Name = "衣服饰品" },
@@ -71,6 +72,8 @@ namespace Accounting.Api.DbContexts
                 new SecondaryCategory() { Id = 23, PrimaryId = 9, Name = "按揭还款" },
                 new SecondaryCategory() { Id = 24, PrimaryId = 10, Name = "意外丢失" }
             );
+
+
         }
     }
 }

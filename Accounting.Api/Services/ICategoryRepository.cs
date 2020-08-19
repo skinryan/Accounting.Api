@@ -9,7 +9,7 @@ namespace Accounting.Api.Services
     public interface ICategoryRepository
     {
         Task<IEnumerable<PrimaryCategory>> GetAllPrimaryCategoryAsync();
-
+     
         //Task<IEnumerable<SecondaryCategory>> GetAllSecondaryCategoryAsync(int primaryId);
 
         Task<PrimaryCategory> GetPrimaryCategoryAsync(int primaryId);

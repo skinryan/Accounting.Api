@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Accounting.Api.Entities
 
         public int PrimaryId { get; set; }
 
+        [JsonIgnore]
         public PrimaryCategory PrimaryCategory { get; set; }
     }
 }

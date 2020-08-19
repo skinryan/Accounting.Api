@@ -5,15 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Compile Remove="Migrations\20200819064038_AddCategory.cs" />
+    <Compile Remove="Migrations\20200819064038_AddCategory.Designer.cs" />
+    <Compile Remove="Migrations\20200819070228_UpdateCategory.cs" />
+    <Compile Remove="Migrations\20200819070228_UpdateCategory.Designer.cs" />
+    <Compile Remove="Migrations\20200819070637_UpdateCategory.cs" />
+    <Compile Remove="Migrations\20200819070637_UpdateCategory.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="sqlite" Version="3.13.0" />
   </ItemGroup>
 

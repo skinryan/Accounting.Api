@@ -27,6 +27,8 @@ namespace Accounting.Api.Services
             _context.PrimaryCategories.Remove(primaryCategory);
         }
 
+     
+
         public async Task<IEnumerable<PrimaryCategory>> GetAllPrimaryCategoryAsync()
         {
             return await _context.PrimaryCategories.ToListAsync();
