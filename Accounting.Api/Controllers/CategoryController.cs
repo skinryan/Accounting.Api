@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Accounting.Api.Controllers
 {
-    [Route("api/category")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -22,7 +22,14 @@ namespace Accounting.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPrimary()
         {
-            var primary = await _categoryRepository.GetAllPrimaryCategoryAsync();
+            var primary = await _categoryRepository.GetPrimaryCategoryAsync();
+            return new JsonResult(primary);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetPrimaryWithChildren()
+        {
+            var primary = await _categoryRepository.GetPrimaryCategoryWithChildrenAsync();
             return new JsonResult(primary);
         }
 

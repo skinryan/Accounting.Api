@@ -17,8 +17,7 @@ namespace Accounting.Api.Entities
         public string Name { get; set; }
 
         public int PrimaryId { get; set; }
-
-        [JsonIgnore]
+                
         public PrimaryCategory PrimaryCategory { get; set; }
     }
 }

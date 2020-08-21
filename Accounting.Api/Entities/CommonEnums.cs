@@ -10,4 +10,11 @@ namespace Accounting.Api.Entities
         Income = 0,
         Expense = 1
     }
+
+    public enum QueryType
+    {
+        Month = 0,
+        Last3Month = 1,
+        Year = 2
+    }
 }

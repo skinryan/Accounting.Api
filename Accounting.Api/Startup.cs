@@ -29,10 +29,11 @@ namespace Accounting.Api
         {
             services.AddControllers().AddNewtonsoftJson(o =>
             {
-                o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+                o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IRecordRepository, RecordRepository>();
             services.AddDbContext<AccountingDbContext>(opts =>
             {
                 opts.UseSqlite("Data source=AccountingDB.db");

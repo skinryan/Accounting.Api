@@ -8,19 +8,26 @@ namespace Accounting.Api.Services
 {
     public interface ICategoryRepository
     {
-        Task<IEnumerable<PrimaryCategory>> GetAllPrimaryCategoryAsync();
-     
-        //Task<IEnumerable<SecondaryCategory>> GetAllSecondaryCategoryAsync(int primaryId);
+        #region primary
 
+        Task<IEnumerable<PrimaryCategory>> GetPrimaryCategoryAsync();
+        Task<IEnumerable<PrimaryCategory>> GetPrimaryCategoryWithChildrenAsync();
         Task<PrimaryCategory> GetPrimaryCategoryAsync(int primaryId);
-
         void AddPrimaryCategory(PrimaryCategory primaryCategory);
-
         void UpdatePrimaryCategory(PrimaryCategory primaryCategory);
-
         void DeletePrimaryCategory(PrimaryCategory primaryCategory);
 
-        //Task<SecondaryCategory> GetSecondaryCategoryAsync(int secondaryId);
+        #endregion
+
+        #region secondary
+
+        Task<IEnumerable<SecondaryCategory>> GetSecondaryCategorisAsync(int parentId);
+        Task<SecondaryCategory> GetSecondaryCategoryAsync(int id);
+        void AddSecondaryCategory(SecondaryCategory secondaryCategory);
+        void UpdateSecondaryCategory(SecondaryCategory secondaryCategory);
+        void DeleteSecondaryCategory(SecondaryCategory secondaryCategory);
+
+        #endregion
 
         Task<bool> SaveAsync();
     }
