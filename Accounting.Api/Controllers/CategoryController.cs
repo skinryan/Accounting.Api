@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Accounting.Api.Entities;
+using Accounting.Api.Models;
 using Accounting.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,22 +24,72 @@ namespace Accounting.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPrimary()
         {
-            var primary = await _categoryRepository.GetPrimaryCategoryAsync();
-            return new JsonResult(primary);
+            var result = new Result<List<PrimaryCategory>>()
+            {
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+            };
+
+            try
+            {
+                var primary = await _categoryRepository.GetPrimaryCategoryAsync();
+                result.Data = primary.ToList();
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = CommonConst.ERR_CODE_FAIL;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return new JsonResult(result);
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetPrimaryWithChildren()
         {
-            var primary = await _categoryRepository.GetPrimaryCategoryWithChildrenAsync();
-            return new JsonResult(primary);
+            var result = new Result<List<PrimaryCategory>>()
+            {
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+
+            };
+
+            try
+            {
+                var primary = await _categoryRepository.GetPrimaryCategoryWithChildrenAsync();
+
+                result.Data = primary.ToList();
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = CommonConst.ERR_CODE_FAIL;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return new JsonResult(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPrimary(int id)
         {
-            var primary = await _categoryRepository.GetPrimaryCategoryAsync(id);
-            return new JsonResult(primary.SecondaryCategory);
+            var result = new Result<PrimaryCategory>()
+            {
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+            };
+
+            try
+            {
+                var primary = await _categoryRepository.GetPrimaryCategoryAsync(id);
+                result.Data = primary;
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = CommonConst.ERR_CODE_FAIL;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return new JsonResult(result);
         }
     }
 }

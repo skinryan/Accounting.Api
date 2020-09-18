@@ -46,24 +46,23 @@ namespace Accounting.Api.Migrations
                 name: "Records",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
+                    RecordId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Type = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Comment = table.Column<string>(nullable: true),
                     Amount = table.Column<decimal>(nullable: false),
-                    SecondaryId = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: true)
+                    SecondaryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Records", x => x.Id);
+                    table.PrimaryKey("PK_Records", x => x.RecordId);
                     table.ForeignKey(
-                        name: "FK_Records_secondaryCategories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Records_secondaryCategories_SecondaryId",
+                        column: x => x.SecondaryId,
                         principalTable: "secondaryCategories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -242,9 +241,9 @@ namespace Accounting.Api.Migrations
                 values: new object[] { 24, null, "意外丢失", 10 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_CategoryId",
+                name: "IX_Records_SecondaryId",
                 table: "Records",
-                column: "CategoryId");
+                column: "SecondaryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_secondaryCategories_PrimaryId",

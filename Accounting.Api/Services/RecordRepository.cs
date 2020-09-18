@@ -35,9 +35,9 @@ namespace Accounting.Api.Services
                 throw new ArgumentNullException(nameof(record));
             }
 
-            if (!Exists(record.Id))
+            if (!Exists(record.RecordId))
             {
-                throw new ArgumentOutOfRangeException(nameof(record.Id));
+                throw new ArgumentOutOfRangeException(nameof(record.RecordId));
             }
 
             _context.Records.Remove(record);
@@ -68,7 +68,7 @@ namespace Accounting.Api.Services
 
         public async Task<Record> GetRecordsAsync(int id)
         {
-            return await _context.Records.FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Records.FirstOrDefaultAsync(r => r.RecordId == id);
         }
 
         public async Task<bool> SaveAsync()
@@ -83,9 +83,9 @@ namespace Accounting.Api.Services
                 throw new ArgumentNullException(nameof(record));
             }
 
-            if (!Exists(record.Id))
+            if (!Exists(record.RecordId))
             {
-                throw new ArgumentException(nameof(record.Id));
+                throw new ArgumentException(nameof(record.RecordId));
             }
 
             _context.Records.Update(record);
@@ -93,7 +93,7 @@ namespace Accounting.Api.Services
 
         private bool Exists(int recordId)
         {
-            return _context.Records.Any(t => t.Id == recordId);
+            return _context.Records.Any(t => t.RecordId == recordId);
         }
     }
 }

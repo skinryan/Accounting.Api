@@ -32,6 +32,8 @@ namespace Accounting.Api.DbContexts
                 .HasForeignKey(s => s.PrimaryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Record>().HasOne(r => r.Category).WithMany(c => c.Records).HasForeignKey(r => r.SecondaryId);
+
             modelBuilder.Entity<PrimaryCategory>().HasData(
                 new PrimaryCategory() { Id = 1, Name = "衣服饰品" },
                 new PrimaryCategory() { Id = 2, Name = "食品酒水" },

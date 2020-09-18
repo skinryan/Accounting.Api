@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accounting.Api.Migrations
 {
     [DbContext(typeof(AccountingDbContext))]
-    [Migration("20200818031457_initial")]
+    [Migration("20200917063813_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.4");
+                .HasAnnotation("ProductVersion", "3.1.7");
 
             modelBuilder.Entity("Accounting.Api.Entities.PrimaryCategory", b =>
                 {
@@ -89,15 +89,12 @@ namespace Accounting.Api.Migrations
 
             modelBuilder.Entity("Accounting.Api.Entities.Record", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Comment")
                         .HasColumnType("TEXT");
@@ -111,9 +108,9 @@ namespace Accounting.Api.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("RecordId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("SecondaryId");
 
                     b.ToTable("Records");
                 });
@@ -295,8 +292,10 @@ namespace Accounting.Api.Migrations
             modelBuilder.Entity("Accounting.Api.Entities.Record", b =>
                 {
                     b.HasOne("Accounting.Api.Entities.SecondaryCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithMany("Records")
+                        .HasForeignKey("SecondaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Accounting.Api.Entities.SecondaryCategory", b =>

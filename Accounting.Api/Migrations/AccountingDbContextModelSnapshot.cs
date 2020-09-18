@@ -87,15 +87,12 @@ namespace Accounting.Api.Migrations
 
             modelBuilder.Entity("Accounting.Api.Entities.Record", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RecordId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Comment")
                         .HasColumnType("TEXT");
@@ -109,9 +106,9 @@ namespace Accounting.Api.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("RecordId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("SecondaryId");
 
                     b.ToTable("Records");
                 });
@@ -293,8 +290,10 @@ namespace Accounting.Api.Migrations
             modelBuilder.Entity("Accounting.Api.Entities.Record", b =>
                 {
                     b.HasOne("Accounting.Api.Entities.SecondaryCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithMany("Records")
+                        .HasForeignKey("SecondaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Accounting.Api.Entities.SecondaryCategory", b =>

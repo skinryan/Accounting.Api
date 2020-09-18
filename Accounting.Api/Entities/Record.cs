@@ -11,7 +11,7 @@ namespace Accounting.Api.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int RecordId { get; set; }
 
         public RecordType Type { get; set; }
 

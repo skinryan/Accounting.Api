@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Accounting.Api.DbContexts;
 using Accounting.Api.Entities;
+using Accounting.Api.Models;
 
 namespace Accounting.Api.Controllers
 {
@@ -23,9 +24,24 @@ namespace Accounting.Api.Controllers
 
         // GET: api/Secondary
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SecondaryCategory>>> GetsecondaryCategories()
+        public async Task<ActionResult<Result<List<SecondaryCategory>>>> GetsecondaryCategories()
         {
-            return await _context.secondaryCategories.Include(t=>t.PrimaryCategory).ToListAsync();
+            var result = new Result<List<SecondaryCategory>>()
+            {
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+            };
+
+            try
+            {
+                result.Data = await _context.secondaryCategories.Include(t => t.PrimaryCategory).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = CommonConst.ERR_CODE_FAIL;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
         }
 
         // GET: api/Secondary/5

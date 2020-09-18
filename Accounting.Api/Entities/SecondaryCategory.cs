@@ -17,7 +17,9 @@ namespace Accounting.Api.Entities
         public string Name { get; set; }
 
         public int PrimaryId { get; set; }
-                
+
         public PrimaryCategory PrimaryCategory { get; set; }
+
+        public ICollection<Record> Records { get; set; }
     }
 }
