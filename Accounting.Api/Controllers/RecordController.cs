@@ -99,7 +99,7 @@ namespace Accounting.Api.Controllers
                 result.ErrorMessage = CommonConst.ERR_MSG_UNKNOW;
             }
 
-            return result;
+            return new JsonResult(result);
         }
 
         [HttpPost]

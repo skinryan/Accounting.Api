@@ -41,21 +41,39 @@ namespace Accounting.Api.Controllers
                 result.ErrorCode = CommonConst.ERR_CODE_FAIL;
                 result.ErrorMessage = ex.Message;
             }
-            return result;
+            return new JsonResult(result);
         }
 
         // GET: api/Secondary/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SecondaryCategory>> GetSecondaryCategory(int id)
         {
-            var secondaryCategory = await _context.secondaryCategories.FindAsync(id);
-
-            if (secondaryCategory == null)
+            var result = new Result<SecondaryCategory>()
             {
-                return NotFound();
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+            };
+
+            try
+            {
+                var secondaryCategory = await _context.secondaryCategories.FindAsync(id);
+
+                if (secondaryCategory == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    result.Data = secondaryCategory;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = CommonConst.ERR_CODE_FAIL;
+                result.ErrorMessage = ex.Message;
             }
 
-            return secondaryCategory;
+            return new JsonResult(result);
         }
 
         // PUT: api/Secondary/5
@@ -87,7 +105,12 @@ namespace Accounting.Api.Controllers
                 }
             }
 
-            return NoContent();
+            return new JsonResult(new Result<SecondaryCategory>()
+            {
+                Data = secondaryCategory,
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+            });
         }
 
         // POST: api/Secondary
@@ -106,16 +129,34 @@ namespace Accounting.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<SecondaryCategory>> DeleteSecondaryCategory(int id)
         {
-            var secondaryCategory = await _context.secondaryCategories.FindAsync(id);
-            if (secondaryCategory == null)
+            var result = new Result<SecondaryCategory>()
             {
-                return NotFound();
+                ErrorCode = CommonConst.ERR_CODE_SUCCESS,
+                ErrorMessage = ""
+            };
+
+            try
+            {
+                var secondaryCategory = await _context.secondaryCategories.FindAsync(id);
+                if (secondaryCategory == null)
+                {
+                    return NotFound();
+                }
+
+                result.Data = secondaryCategory;
+
+                _context.secondaryCategories.Remove(secondaryCategory);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                result.ErrorCode = CommonConst.ERR_CODE_FAIL;
+                result.ErrorMessage = ex.Message;
             }
 
-            _context.secondaryCategories.Remove(secondaryCategory);
-            await _context.SaveChangesAsync();
 
-            return secondaryCategory;
+            return new JsonResult(result);
         }
 
         private bool SecondaryCategoryExists(int id)
